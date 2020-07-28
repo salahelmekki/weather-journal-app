@@ -6,18 +6,22 @@ let apiurl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let user = document.getElementById('feelings').value;
+console.log(user);
 
 document.getElementById('generate').addEventListener('click',performact);
 
 function performact(e){
+	
+	
 const contry = document.getElementById('zip').value;
-const user_response = document.getElementById('feelings').value;
+
 
 getwether(apiurl,contry,apikey)
 	.then(function(data)
 	{
-		//console.log(data)
-		postwethear('/',{temperature:data.main.temp,newDate:newDate,user_response:user_response});
+		console.log(data)
+		postwethear('/all',{temperature:data.main.temp,newDate:newDate,r:user});
 	
 }).then(function(){
 	
@@ -54,7 +58,7 @@ const postwethear = async (url='',data={})=> {
 	console.log(res);
 	 try{
 		 const newres= await res.json();
-		 console.log(newres);
+		 //console.log(newres);
 		 return newres;
 	 }catch(error){
 		 console.log('error is ',error);
@@ -64,15 +68,15 @@ const postwethear = async (url='',data={})=> {
 }
 	
 const UpdateUI = async () => {
- const request = await fetch('/');
+ const request = await fetch('/all');
  //console.log(request);
  try {
 	 const data= await request.json();
-	 //console.log(data);
+	// console.log(data);
 	 //console.log(alldata[0].temperature);
-	 document.getElementById('temp').innerHTML = data.main.temp;
-	 document.getElementById('date').innerHTML = data.newDate;
-	 document.getElementById('content').innerHTML = data.user_response;
+	 document.getElementById('temp').innerHTML = data[0].temp;
+	 document.getElementById('date').innerHTML = newDate;
+	 document.getElementById('content').innerHTML = user;
 	 
 	 
 	
