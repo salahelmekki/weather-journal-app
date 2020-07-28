@@ -29,11 +29,11 @@ function listning() {
 	     console.log('running on localhost with port: ',port);
 }
 // get route
-app.get('/',function(req,res) {
+app.get('/all',function(req,res) {
 	res.send(projectData);}
 )
 
-app.post('/',function(req,res){
+app.post('/all',function(req,res){
 	//projectData.push(req.body);
 	//console.log(req.body);
 	let newData = req.body;
@@ -46,6 +46,6 @@ app.post('/',function(req,res){
 	}
 	projectData.push(newEntry)	;
 	//res.send(projectData);
-	//console.log(projectData);
+	console.log(projectData);
 	
 });
