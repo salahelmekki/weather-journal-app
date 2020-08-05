@@ -6,8 +6,8 @@ let apiurl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
-let user = document.getElementById('feelings').value;
-console.log(user);
+const user = document.getElementById('feelings');
+
 
 document.getElementById('generate').addEventListener('click',performact);
 
@@ -15,16 +15,14 @@ function performact(e){
 	
 	
 const contry = document.getElementById('zip').value;
+console.log(user);
 
 
 getwether(apiurl,contry,apikey)
 	.then(function(data)
 	{
-		console.log(data)
-		postwethear('/all',{temperature:data.main.temp,newDate:newDate,r:user});
-	
-}).then(function(){
-	
+		//console.log(data)
+		postwethear('/all',{temperature:data.main.temp,newDate:newDate,user:user});
 		UpdateUI();
 })
 
@@ -76,7 +74,7 @@ const UpdateUI = async () => {
 	 //console.log(alldata[0].temperature);
 	 document.getElementById('temp').innerHTML = data[0].temp;
 	 document.getElementById('date').innerHTML = newDate;
-	 document.getElementById('content').innerHTML = user;
+	 document.getElementById('content').innerHTML = user.value;
 	 
 	 
 	
